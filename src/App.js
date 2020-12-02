@@ -1,24 +1,49 @@
-import logo from './logo.svg';
-import './App.css';
+import Provider from "./Provider";
+import { BrowserRouter as Router, Route, Link, Switch, NavLink } from "react-router-dom";
+import StyleRender from "./components/StyleRender";
+import Message from "./components/Message";
+import GlobalStyle from "./styles/Global";
+import React from 'react';
 
-function App() {
+const App = () => {
+
+
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+
+      <Provider>
+
+          <GlobalStyle />
+
+          <Router>
+
+              <nav className="navbar justify-content-center navbar-expand-sm navbar-light bg-light">
+
+                  <ul className="navbar-nav">
+
+                      <li className="nav-item" title="Tables"><Link to="/message" >Message</Link></li>
+
+                      <li className="nav-item" title="Jouer"><Link to="/rendu">Rendu</Link></li>
+
+                  </ul>
+
+              </nav>
+
+              <Switch>
+
+                  <Route exact path="/" component={Message} />
+
+                  <Route exact path="/message" component={Message} />
+
+                  <Route exact path="/rendu" component={StyleRender} />
+
+                  <Route path="*"> <p>Aucune correspondance !</p> </Route>
+
+              </Switch>
+
+          </Router>
+
+      </Provider>
+
   );
 }
 
