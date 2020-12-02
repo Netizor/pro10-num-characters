@@ -21,7 +21,7 @@ const StyleRender = () => {
 
                     state.messages.map( (message, index) => {
 
-                        let style = { fontSize: `${ message.textSize }px`, fontFamily: `${ message.textStyle }` };
+                        let style = { fontSize: `${ message.textSize }px`, color: `${ message.textStyle }` };
 
                         return (
                             <li className="list-group-item" key={index} style={ style }>

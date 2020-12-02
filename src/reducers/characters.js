@@ -9,7 +9,8 @@ const initialState = {
     result: '',
     authorizedStyles: [ 'palevioletred', 'tomato' ],
     authorizedTextSize: [ '15', '16', '17', '18', '19', '20' ],
-    error: false
+    error: false,
+    letters: 0
 }
 
 const reducer = (state, action) => {
@@ -17,9 +18,13 @@ const reducer = (state, action) => {
     switch(action.type){
 
         case 'ON_CHANGE':
+
+            const letters = action.value.trim().split(' ').map( (word) => word.length ).join(' ');
+
             return {
                 ...state,
-                [action.name]: action.value
+                [action.name]: action.value,
+                letters: letters
             };
 
         case 'ON_SUBMIT':
@@ -27,15 +32,21 @@ const reducer = (state, action) => {
             let result= 'Message enregistré !', error = false;
             let messages = [...state.messages];
 
-            if( !state.authorizedStyles.includes( state.textStyle ) )
+            if( state.text.trim().length === 0 )
             {
-                result = "Ce style de rendu n'est pas valide !";
+                result = "veuillez saisir un message !";
                 error = true;
             }
 
             else if( !state.authorizedTextSize.includes( state.textSize ) )
             {
                 result = "Cette taille de texte n'est pas valide !";
+                error = true;
+            }
+
+            else if( !state.authorizedStyles.includes( state.textStyle ) )
+            {
+                result = "Cette couleur de texte n'est pas valide !";
                 error = true;
             }
 
